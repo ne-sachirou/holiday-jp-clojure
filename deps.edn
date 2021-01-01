@@ -1,0 +1,5 @@
+{:deps {}
+ :aliases {:dev {:extra-paths ["dev"]
+                 :extra-deps {clj-commons/clj-yaml {:mvn/version "0.7.0"}
+                              cljfmt/cljfmt {:mvn/version "0.7.0"}}}
+           :test {:extra-paths ["test"]}}}
