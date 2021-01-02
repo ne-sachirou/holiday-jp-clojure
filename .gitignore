@@ -13,6 +13,7 @@
 .rebar3
 _*
 _build
+cljs-test-runner-out
 ebin
 erl_crash.dump
 log

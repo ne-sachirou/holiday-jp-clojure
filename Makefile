@@ -19,6 +19,10 @@ repl-clj: ## Start a REPL shell for Clojure
 repl-clje: ## Start a REPL shell for Clojerl
 	rlwrap -c -b "(){}[],^%$#@\"\";:''|\\" rebar3 clojerl repl
 
+.PHONY: repl-cljs
+repl-cljs: ## Start a REPL shell for ClojureScript
+	clojure -M:dev-cljs -m cljs.main -r
+
 .PHONY: test-clj
 test-clj:
 	git ls-files | grep '\.clj\(ces\)\?\|edn$$' | xargs -t clojure -M:dev -m cljfmt.main check
@@ -28,15 +32,15 @@ test-clj:
 test-clje:
 	rebar3 clojerl test
 
+.PHONY: test-cljs
+test-cljs:
+	clojure -M:dev-cljs:test-cljs
+
 .PHONY: test
-test: test-clj test-clje ## Test
+test: test-clj test-clje test-cljs ## Test
 
 .PHONY: upgrade
 upgrade: ## Upgrade deps
 	git submodule update --remote
 	$(MAKE) get-datasets format
 	rebar3 upgrade
-	# npx npm-check-updates -u
-	# npm install
-	# npm audit fix
-	# npm fund

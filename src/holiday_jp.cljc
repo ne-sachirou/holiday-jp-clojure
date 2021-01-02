@@ -5,14 +5,15 @@
 (defn between
   "Holidays between the start and the last."
   [start last]
-  #?(:clj (filter (fn [{date :date}] (and (or (= date start)
-                                              (.after date start))
-                                          (or (= date last)
-                                              (.before date last))))
+  #?(:clj (filter (fn [{date :date}] (and (>= (.compareTo date start) 0)
+                                          (<= (.compareTo date last) 0)))
                   (vals holiday-jp.holidays/holidays))
      :clje (reverse (filter (fn [{date :date}] (and (>= (.timestamp date) (.timestamp start))
                                                     (<= (.timestamp date) (.timestamp last))))
-                            (vals holiday-jp.holidays/holidays)))))
+                            (vals holiday-jp.holidays/holidays)))
+     :cljs (filter (fn [{date :date}] (and (>= (.getTime date) (.getTime start))
+                                           (<= (.getTime date) (.getTime last))))
+                   (vals holiday-jp.holidays/holidays))))
 
 (defn holiday?
   "The date is a holiday or not."
