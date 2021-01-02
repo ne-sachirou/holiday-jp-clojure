@@ -4,7 +4,6 @@ help:
 
 .PHONY: get-datasets
 get-datasets: ## Convert holidays_detailed.yml to edn
-	# clojure -M:dev -m task.get-datasets run
 	clj -M:dev dev/task/get_datasets.clj
 
 .PHONY: format
@@ -12,25 +11,31 @@ format: ## Format files
 	ag -g '\.clj(ces)?|edn$$' | xargs -t clojure -M:dev -m cljfmt.main fix
 	npx prettier --write README.md
 
-.PHONY: repl
-repl: ## Start a REPL shell
+.PHONY: repl-clj
+repl-clj: ## Start a REPL shell for Clojure
 	clj -M:dev -r
-	# rlwrap -c -b "(){}[],^%$#@\"\";:''|\\" rebar3 clojerl repl
+
+.PHONY: repl-clje
+repl-clje: ## Start a REPL shell for Clojerl
+	rlwrap -c -b "(){}[],^%$#@\"\";:''|\\" rebar3 clojerl repl
 
 .PHONY: test-clj
 test-clj:
 	git ls-files | grep '\.clj\(ces\)\?\|edn$$' | xargs -t clojure -M:dev -m cljfmt.main check
 	clojure -M:test
 
+.PHONY: test-clje
+test-clje:
+	rebar3 clojerl test
+
 .PHONY: test
-test: test-clj ## Test
-	# rebar3 clojerl test
+test: test-clj test-clje ## Test
 
 .PHONY: upgrade
 upgrade: ## Upgrade deps
 	git submodule update --remote
 	$(MAKE) get-datasets format
-	# rebar3 upgrade
+	rebar3 upgrade
 	# npx npm-check-updates -u
 	# npm install
 	# npm audit fix

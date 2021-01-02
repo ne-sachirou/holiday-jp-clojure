@@ -30,29 +30,29 @@ jobs:
         run: |
           make test-clj
 
-  # test-clje:
-  #   strategy:
-  #     matrix:
-  #       elixir: ['1.11.x']
-  #       erlang: ['22.x', '23.x']
-  #       os: [ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - uses: actions/setup-elixir@v1
-  #       with:
-  #         elixir-version: ${{ matrix.elixir }}
-  #         otp-version: ${{ matrix.erlang }}
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: |
-  #           _build
-  #         key: ${{ runner.os }}-erl${{ matrix.erlang }}-${{ hashFiles('rebar.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-erl${{ matrix.erlang }}-
-  #     - name: Lint & test
-  #       run: |
-  #         rebar3 clojerl test
+  test-clje:
+    strategy:
+      matrix:
+        elixir: ['1.11.x']
+        erlang: ['23.x']
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-elixir@v1
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.erlang }}
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            _build
+          key: ${{ runner.os }}-erl${{ matrix.erlang }}-${{ hashFiles('rebar.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-erl${{ matrix.erlang }}-
+      - name: Lint & test
+        run: |
+          make test-clje
 
   # test-cljr:
   #   strategy:

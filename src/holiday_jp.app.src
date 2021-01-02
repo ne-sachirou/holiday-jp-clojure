@@ -1,6 +1,6 @@
 { application, 'holiday_jp'
 , [ {vsn, git}
-  , {description, "A Clojerl library"}
+  , {description, "Japanese holiday."}
   , {modules, []}
   , { applications
     , [ stdlib
@@ -8,6 +8,5 @@
       , clojerl
       ]
     }
-  , {mod, {'holiday_jp.app', []}}
   ]
 }.
