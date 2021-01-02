@@ -17,10 +17,13 @@ repl: ## Start a REPL shell
 	clj -M:dev -r
 	# rlwrap -c -b "(){}[],^%$#@\"\";:''|\\" rebar3 clojerl repl
 
-.PHONY: test
-test: ## Test
+.PHONY: test-clj
+test-clj:
 	git ls-files | grep '\.clj\(ces\)\?\|edn$$' | xargs -t clojure -M:dev -m cljfmt.main check
-	# clj -A:test
+	clojure -M:test
+
+.PHONY: test
+test: test-clj ## Test
 	# rebar3 clojerl test
 
 .PHONY: upgrade
