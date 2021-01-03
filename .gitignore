@@ -5,7 +5,7 @@
 *.swo
 *.swp
 *~
-.cpcache
+.cpcache/
 .erlang.cookie
 .eunit
 .idea
@@ -13,9 +13,10 @@
 .rebar3
 _*
 _build
-cljs-test-runner-out
+cljs-test-runner-out/
 ebin
 erl_crash.dump
 log
 logs
 rebar3.crashdump
+target/

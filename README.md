@@ -1,6 +1,7 @@
 # holiday-jp
 
-![Test](https://github.com/ne-sachirou/holiday-jp-clojure/workflows/Test/badge.svg)
+[![Test](https://github.com/ne-sachirou/holiday-jp-clojure/workflows/Test/badge.svg)](https://github.com/ne-sachirou/holiday-jp-clojure/actions?query=workflow:Test)
+[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.ne_sachirou/holiday-jp.svg)](https://clojars.org/org.clojars.ne_sachirou/holiday-jp)
 [![Hex.pm](https://img.shields.io/hexpm/v/holiday_jp_clje.svg)](https://hex.pm/packages/holiday_jp_clje)
 
 Japanese holiday.
@@ -21,8 +22,7 @@ Add to `deps.edn`.
 
 ```clojure
 {:deps {…
-        holiday-jp {:git/url "https://github.com/ne-sachirou/holiday-jp-clojure.git"
-                    :sha "〜"}}}
+        org.clojars.ne_sachirou/holiday-jp-clj {:mvn/version "0.1.0"}}}
 ```
 
 ### Clojerl

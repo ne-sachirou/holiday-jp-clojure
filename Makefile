@@ -13,8 +13,8 @@ format: ## Format files
 
 .PHONY: publish
 publish: ## Publish this to the package repository
-	# mvn deploy
-	rebar3 hex publish
+	mvn deploy
+	rebar3 hex publish || true
 
 .PHONY: repl-clj
 repl-clj: ## Start a REPL shell for Clojure
