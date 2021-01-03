@@ -1,6 +1,7 @@
 # holiday-jp
 
 ![Test](https://github.com/ne-sachirou/holiday-jp-clojure/workflows/Test/badge.svg)
+[![Hex.pm](https://img.shields.io/hexpm/v/holiday_jp_clje.svg)](https://hex.pm/packages/holiday_jp_clje)
 
 Japanese holiday.
 
@@ -30,7 +31,7 @@ Add to `rebar.config`.
 
 ```erlang
 {deps, […,
-        {holiday-jp, {git, "https://github.com/ne-sachirou/holiday-jp-clojure.git", {branch, "main"}}}]}
+        {holiday_jp, "~> 0.1.0", {pkg, holiday_jp_clje}}]}
 ```
 
 ### Clojure CLR
