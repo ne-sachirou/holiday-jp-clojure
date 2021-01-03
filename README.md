@@ -8,6 +8,10 @@ This is an Clojure port of [holiday-jp/holiday_jp-ruby](https://github.com/holid
 
 We support Clojure, Clojerl, Clojure CLR and ClojureScript.
 
+## LICENSE
+
+GPL-3.0-or-later
+
 ## Installation
 
 ### Clojure, ClojureScript

@@ -1,6 +1,6 @@
 { application, 'holiday_jp'
 , [ {vsn, git}
-  , {description, "Japanese holiday."}
+  , {description, "Japanese holiday in Clojerl."}
   , {modules, []}
   , { applications
     , [ stdlib
@@ -8,5 +8,8 @@
       , clojerl
       ]
     }
+  , {licenses, ["GPL-3.0-or-later"]}
+  , {pkg_name, "holiday_jp_clje"}
+  , {links, [{"GitHub", "https://github.com/ne-sachirou/holiday-jp-clojure"}]}
   ]
 }.

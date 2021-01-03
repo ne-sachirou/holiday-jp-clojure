@@ -11,6 +11,11 @@ format: ## Format files
 	ag -g '\.clj(ces)?|edn$$' | xargs -t clojure -M:dev -m cljfmt.main fix
 	npx prettier --write README.md
 
+.PHONY: publish
+publish: ## Publish this to the package repository
+	# mvn deploy
+	rebar3 hex publish
+
 .PHONY: repl-clj
 repl-clj: ## Start a REPL shell for Clojure
 	clj -M:dev -r
@@ -43,4 +48,6 @@ test: test-clj test-clje test-cljs ## Test
 upgrade: ## Upgrade deps
 	git submodule update --remote
 	$(MAKE) get-datasets format
+	clojure -Spom
 	rebar3 upgrade
+	rebar3 update
