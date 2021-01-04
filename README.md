@@ -41,29 +41,29 @@ Add to `rebar.config`.
 `between` returns a vector of holidays between the start and the last.
 
 ```clojure
-(is (= [{:date #inst "2021-01-01T00:00:00.000-00:00"
+(is (= [{:date #inst "2021-01-01T00:00:00.000+09:00"
          :week "金"
          :week_en "Friday"
          :name "元日"
          :name_en "New Year's Day"}]
-       (holiday-jp/between #inst"2020-12-31" #inst"2021-01-02")))
+       (holiday-jp/between #inst"2020-12-31T00:00:00+09:00" #inst"2021-01-02T00:00:00+09:00")))
 ```
 
 `holiday?` detects the date is a holiday or not.
 
 ```clojure
-(is (holiday-jp/holiday? #inst"2021-01-01"))
+(is (holiday-jp/holiday? #inst"2021-01-01T00:00:00+09:00"))
 
-(is (not (holiday-jp/holiday? #inst"2021-01-02")))
+(is (not (holiday-jp/holiday? #inst"2021-01-02T00:00:00+09:00")))
 ```
 
 `on` returns a vector of holidays in the date.
 
 ```clojure
-(is (= [{:date #inst "2021-01-01T00:00:00.000-00:00"
+(is (= [{:date #inst "2021-01-01T00:00:00.000+09:00"
          :week "金"
          :week_en "Friday"
          :name "元日"
          :name_en "New Year's Day"}]
-       (holiday-jp/on #inst"2021-01-01")))
+       (holiday-jp/on #inst"2021-01-01T00:00:00+09:00")))
 ```
