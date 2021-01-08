@@ -18,5 +18,6 @@ ebin
 erl_crash.dump
 log
 logs
+obj/
 rebar3.crashdump
 target/
