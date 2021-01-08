@@ -57,18 +57,22 @@ jobs:
   test-cljr:
     strategy:
       matrix:
-        dotnet: ["5.0"]
-        clojure: ["1.9.0"]
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ matrix.dotnet }}
-      - name: Setup Clojure CLR
-        run: |
-          dotnet add package Clojure -Version ${{ matrix.clojure }}
       - uses: actions/checkout@v2
       - name: Lint & test
         run: |
-          make test-cljr
+          Register-PackageSource -Name NuGet -Location https://api.nuget.org/v3/index.json -ProviderName NuGet
+
+          Install-Package Clojure -Force -ProviderName NuGet
+          cp 'C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.9.0\lib\net40\*' 'C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.9.0\tools\net40'
+          $env:Path = $env:Path + ';C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.9.0\tools\net40'
+
+          Install-Package clojure.spec.alpha -Force
+          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.spec.alpha.0.1.187\lib\net461\*' .
+
+          Install-Package clojure.core.specs.alpha -Force
+          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.core.specs.alpha.0.2.45\lib\net461\*' .
+
+          Clojure.Main .\dev\task\test_cljr.clj

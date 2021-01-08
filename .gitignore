@@ -1,4 +1,5 @@
 *.beam
+*.dll
 *.iml
 *.o
 *.plt
@@ -9,6 +10,7 @@
 .erlang.cookie
 .eunit
 .idea
+.nrepl-port
 .rebar
 .rebar3
 _*

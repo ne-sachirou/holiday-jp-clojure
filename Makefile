@@ -39,8 +39,8 @@ test-clje:
 	rebar3 clojerl test
 
 .PHONY: test-cljr
-test-cljr: ## Test for Clojure CLR. This works only on Windows
-	exit 1
+test-cljr: ## Test for Clojure CLR
+	Clojure.Main .\dev\task\test_cljr.clj
 
 .PHONY: test-cljs
 test-cljs:
