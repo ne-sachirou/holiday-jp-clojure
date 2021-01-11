@@ -1,4 +1,5 @@
 *.beam
+*.dll
 *.iml
 *.o
 *.plt
@@ -9,14 +10,17 @@
 .erlang.cookie
 .eunit
 .idea
+.nrepl-port
 .rebar
 .rebar3
 _*
 _build
+bin/
 cljs-test-runner-out/
 ebin
 erl_crash.dump
 log
 logs
+obj/
 rebar3.crashdump
 target/

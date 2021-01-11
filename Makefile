@@ -10,6 +10,7 @@ get-datasets: ## Convert holidays_detailed.yml to edn
 format: ## Format files
 	ag -g '\.clj(ces)?|edn$$' | xargs -t clojure -M:dev -m cljfmt.main fix
 	npx prettier --write README.md
+	npx prettier --write .github/workflows/*.yml
 
 .PHONY: publish
 publish: ## Publish this to the package repository
@@ -36,6 +37,10 @@ test-clj:
 .PHONY: test-clje
 test-clje:
 	rebar3 clojerl test
+
+.PHONY: test-cljr
+test-cljr: ## Test for Clojure CLR
+	Clojure.Main .\dev\task\test_cljr.clj
 
 .PHONY: test-cljs
 test-cljs:
