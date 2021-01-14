@@ -22,7 +22,7 @@ Add to `deps.edn`.
 
 ```clojure
 {:deps {…
-        org.clojars.ne_sachirou/holiday-jp-clj {:mvn/version "0.1.0"}}}
+        org.clojars.ne_sachirou/holiday-jp-clj {:mvn/version "0.1.1"}}}
 ```
 
 ### Clojerl
