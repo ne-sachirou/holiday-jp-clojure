@@ -8,7 +8,7 @@ get-datasets: ## Convert holidays_detailed.yml to edn
 
 .PHONY: format
 format: ## Format files
-	ag -g '\.clj(ces)?|edn$$' | xargs -t clojure -M:dev -m cljfmt.main fix
+	ag -g '\.clj[ces]?|edn$$' | xargs -t clojure -M:dev -m cljfmt.main fix
 	npx prettier --write README.md
 	npx prettier --write .github/workflows/*.yml
 
@@ -31,7 +31,7 @@ repl-cljs: ## Start a REPL shell for ClojureScript
 
 .PHONY: test-clj
 test-clj:
-	git ls-files | grep '\.clj\(ces\)\?\|edn$$' | xargs -t clojure -M:dev -m cljfmt.main check
+	git ls-files | grep '\.clj[ces]\?\|edn$$' | xargs -t clojure -M:dev -m cljfmt.main check
 	clojure -M:test
 
 .PHONY: test-clje

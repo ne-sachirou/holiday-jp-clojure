@@ -11,7 +11,7 @@ jobs:
   test-clj:
     strategy:
       matrix:
-        clojure: ["1.10.1.739"]
+        clojure: ["1.10.2.774"]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -70,9 +70,9 @@ jobs:
           $env:Path = $env:Path + ';C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.9.0\tools\net40'
 
           Install-Package clojure.spec.alpha -Force
-          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.spec.alpha.0.1.187\lib\net461\*' .
+          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.spec.alpha.*\lib\netstandard2.1\*' .
 
           Install-Package clojure.core.specs.alpha -Force
-          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.core.specs.alpha.0.2.45\lib\net461\*' .
+          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.core.specs.alpha.*\lib\netstandard2.1\*' .
 
           Clojure.Main .\dev\task\test_cljr.clj
