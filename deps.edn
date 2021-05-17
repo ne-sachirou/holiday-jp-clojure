@@ -1,7 +1,6 @@
 {:deps {}
  :aliases {:dev {:extra-paths ["dev"]
-                 :extra-deps {clj-commons/clj-yaml {:mvn/version "0.7.0"}
-                              cljfmt/cljfmt {:mvn/version "0.7.0"}}}
+                 :extra-deps {clj-commons/clj-yaml {:mvn/version "0.7.0"}}}
            :test {:extra-paths ["test"]
                   :extra-deps {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
                                                           :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
