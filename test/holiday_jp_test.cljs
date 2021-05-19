@@ -1,6 +1,6 @@
 (ns holiday-jp-test
   (:require
-    [cljs.test :refer-macros [deftest is testing run-tests]]
+    [cljs.test :refer-macros [deftest is testing]]
     [holiday-jp]))
 
 

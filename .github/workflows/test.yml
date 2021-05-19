@@ -18,14 +18,6 @@ jobs:
       - uses: DeLaGuardo/setup-clojure@3.3
         with:
           cli: ${{ matrix.clojure }}
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.m2
-          key: ${{ runner.os }}-clj-${{ hashFiles('deps.edn') }}
-          restore-keys: |
-            ${{ runner.os }}-clj-
       - name: Setup cljstyle
         run: |
           curl -sLO https://raw.githubusercontent.com/greglook/cljstyle/main/script/install-cljstyle
@@ -36,6 +28,14 @@ jobs:
           curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
           chmod +x install-clj-kondo
           sudo ./install-clj-kondo
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.m2
+          key: ${{ runner.os }}-clj-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clj-
       - name: Test
         run: |
           make test-clj test-cljs
@@ -68,8 +68,7 @@ jobs:
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Test
+      - name: Setup Clojure CLR
         run: |
           Register-PackageSource -Name NuGet -Location https://api.nuget.org/v3/index.json -ProviderName NuGet
 
@@ -82,5 +81,7 @@ jobs:
 
           Install-Package clojure.core.specs.alpha -Force
           cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.core.specs.alpha.*\lib\netstandard2.1\*' .
-
+      - uses: actions/checkout@v2
+      - name: Test
+        run: |
           Clojure.Main .\dev\task\test_cljr.clj

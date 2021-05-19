@@ -5,6 +5,7 @@ help:
 .PHONY: get-datasets
 get-datasets: ## Convert holidays_detailed.yml to edn
 	clj -M:dev dev/task/get_datasets.clj
+	$(MAKE) format
 
 .PHONY: format
 format: ## Format files
@@ -32,7 +33,7 @@ repl-cljs: ## Start a REPL shell for ClojureScript
 .PHONY: test-clj
 test-clj:
 	cljstyle check
-	clj-kondo --lint .
+	cljstyle find | xargs -t clj-kondo --lint || true
 	clojure -M:test
 
 .PHONY: test-clje
@@ -50,10 +51,16 @@ test-cljs:
 .PHONY: test
 test: test-clj test-clje test-cljs ## Test
 
-.PHONY: upgrade
-upgrade: ## Upgrade deps
-	git submodule update --remote
-	$(MAKE) get-datasets format
+.PHONY: upgrade-clj
+upgrade-clj:
 	clojure -Spom
+
+.PHONY: upgrade-clje
+upgrade-clje:
 	rebar3 upgrade
 	rebar3 update
+
+.PHONY: upgrade
+upgrade: upgrade-clj upgrade-clje ## Upgrade deps
+	git submodule update --remote
+	$(MAKE) get-datasets

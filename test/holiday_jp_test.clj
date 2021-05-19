@@ -1,7 +1,7 @@
 (ns holiday-jp-test
   (:require
-    [clojure.test :refer :all]
-    [holiday-jp :refer :all]))
+    [clojure.test :refer [deftest is testing]]
+    [holiday-jp]))
 
 
 (deftest between-test
