@@ -11,13 +11,23 @@ jobs:
   test-clj:
     strategy:
       matrix:
-        clojure: ["1.10.2.774"]
+        clojure: ["1.10.3.849"]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: DeLaGuardo/setup-clojure@3.1
+      - uses: DeLaGuardo/setup-clojure@3.3
         with:
           cli: ${{ matrix.clojure }}
+      - name: Setup cljstyle
+        run: |
+          curl -sLO https://raw.githubusercontent.com/greglook/cljstyle/main/script/install-cljstyle
+          chmod +x install-cljstyle
+          sudo ./install-cljstyle
+      - name: Setup clj-kondo
+        run: |
+          curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
+          chmod +x install-clj-kondo
+          sudo ./install-clj-kondo
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
         with:
@@ -26,21 +36,19 @@ jobs:
           key: ${{ runner.os }}-clj-${{ hashFiles('deps.edn') }}
           restore-keys: |
             ${{ runner.os }}-clj-
-      - name: Lint & test
+      - name: Test
         run: |
           make test-clj test-cljs
 
   test-clje:
     strategy:
       matrix:
-        elixir: ["1.11.x"]
-        erlang: ["23.x"]
+        erlang: ["24.x"]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/setup-elixir@v1
+      - uses: erlef/setup-beam@v1
         with:
-          elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.erlang }}
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -50,29 +58,37 @@ jobs:
           key: ${{ runner.os }}-erl${{ matrix.erlang }}-${{ hashFiles('rebar.lock') }}
           restore-keys: |
             ${{ runner.os }}-erl${{ matrix.erlang }}-
-      - name: Lint & test
+      - name: Test
         run: |
           make test-clje
 
   test-cljr:
     strategy:
       matrix:
+        clojure-clr: ['1.10.0']
+        dotnet: ['5.x']
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Lint & test
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - name: Setup Clojure CLR
         run: |
-          Register-PackageSource -Name NuGet -Location https://api.nuget.org/v3/index.json -ProviderName NuGet
+          dotnet tool install --global --version ${{ matrix.clojure-clr }} Clojure.Main
 
-          Install-Package Clojure -Force -ProviderName NuGet
-          cp 'C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.9.0\lib\net40\*' 'C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.9.0\tools\net40'
-          $env:Path = $env:Path + ';C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.9.0\tools\net40'
+          # Register-PackageSource -Name NuGet -Location https://api.nuget.org/v3/index.json -ProviderName NuGet
 
-          Install-Package clojure.spec.alpha -Force
-          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.spec.alpha.*\lib\netstandard2.1\*' .
+          # Install-Package Clojure -Force -ProviderName NuGet
+          # cp 'C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.10.0\lib\net40\*' 'C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.10.0\tools\net40'
+          # $env:Path = $env:Path + ';C:\Program Files\PackageManagement\NuGet\Packages\Clojure.1.10.0\tools\net40'
 
-          Install-Package clojure.core.specs.alpha -Force
-          cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.core.specs.alpha.*\lib\netstandard2.1\*' .
+          # Install-Package clojure.spec.alpha -Force
+          # cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.spec.alpha.*\lib\netstandard2.1\*' .
 
+          # Install-Package clojure.core.specs.alpha -Force
+          # cp 'C:\Program Files\PackageManagement\NuGet\Packages\clojure.core.specs.alpha.*\lib\netstandard2.1\*' .
+      - uses: actions/checkout@v2
+      - name: Test
+        run: |
           Clojure.Main .\dev\task\test_cljr.clj

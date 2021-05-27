@@ -1,6 +1,8 @@
 (ns holiday-jp-test
-  (:require [clojure.test :refer :all]
-            [holiday-jp :refer :all]))
+  (:require
+    [clojure.test :refer [deftest is testing]]
+    [holiday-jp]))
+
 
 (deftest between-test
   (testing "When the start and the last aren't a holiday."
@@ -62,11 +64,13 @@
              :name_en "New Year's Day"}]
            (holiday-jp/between #inst"2020-01-01T00:00:00+09:00" #inst"2020-01-01T00:00:00+09:00")))))
 
+
 (deftest holidays?-test
   (testing "When the date is a holiday."
     (is (holiday-jp/holiday? #inst"2019-11-23T00:00:00+09:00")))
   (testing "When the date isn't a holiday."
     (is (not (holiday-jp/holiday? #inst"2019-11-22T00:00:00+09:00")))))
+
 
 (deftest on-test
   (testing "When the date is a holiday."

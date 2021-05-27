@@ -5,10 +5,11 @@ help:
 .PHONY: get-datasets
 get-datasets: ## Convert holidays_detailed.yml to edn
 	clj -M:dev dev/task/get_datasets.clj
+	$(MAKE) format
 
 .PHONY: format
 format: ## Format files
-	ag -g '\.clj[ces]?|edn$$' | xargs -t clojure -M:dev -m cljfmt.main fix
+	cljstyle fix
 	npx prettier --write README.md
 	npx prettier --write .github/workflows/*.yml
 
@@ -31,7 +32,8 @@ repl-cljs: ## Start a REPL shell for ClojureScript
 
 .PHONY: test-clj
 test-clj:
-	git ls-files | grep '\.clj[ces]\?\|edn$$' | xargs -t clojure -M:dev -m cljfmt.main check
+	cljstyle check
+	cljstyle find | xargs -t clj-kondo --lint || true
 	clojure -M:test
 
 .PHONY: test-clje
@@ -49,10 +51,17 @@ test-cljs:
 .PHONY: test
 test: test-clj test-clje test-cljs ## Test
 
-.PHONY: upgrade
-upgrade: ## Upgrade deps
-	git submodule update --remote
-	$(MAKE) get-datasets format
+.PHONY: upgrade-clj
+upgrade-clj:
 	clojure -Spom
+
+.PHONY: upgrade-clje
+upgrade-clje:
 	rebar3 upgrade
 	rebar3 update
+
+.PHONY: upgrade
+upgrade: upgrade-clj upgrade-clje ## Upgrade deps
+	git submodule update --remote
+	$(MAKE) get-datasets
+	clj -M:dev -m antq.core

@@ -6,6 +6,7 @@
 *.swo
 *.swp
 *~
+.cache/
 .cpcache/
 .erlang.cookie
 .eunit

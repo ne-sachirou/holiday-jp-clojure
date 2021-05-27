@@ -1,6 +1,8 @@
 (ns task.test-cljr
   "Test for Clojure CLR"
-  (:require [clojure.test]))
+  (:require
+    [clojure.test]))
+
 
 (load "../src/holiday_jp/holidays")
 (load "../src/holiday_jp")
