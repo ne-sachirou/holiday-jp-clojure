@@ -1,0 +1,4 @@
+{:linters {:unresolved-namespace {:exclude [gen_event gen_server uri_string]}
+           :unresolved-symbol {:exclude [after clj->erl gen_event gen_server receive*]
+                               :level :info}
+           :unused-binding {:exclude-destructured-keys-in-fn-args true}}}
