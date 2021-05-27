@@ -64,3 +64,4 @@ upgrade-clje:
 upgrade: upgrade-clj upgrade-clje ## Upgrade deps
 	git submodule update --remote
 	$(MAKE) get-datasets
+	clj -M:dev -m antq.core
