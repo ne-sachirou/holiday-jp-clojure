@@ -65,8 +65,8 @@ jobs:
   test-cljr:
     strategy:
       matrix:
-        clojure-clr: ['1.10.0']
-        dotnet: ['5.x']
+        clojure-clr: ["1.10.0"]
+        dotnet: ["5.x"]
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:

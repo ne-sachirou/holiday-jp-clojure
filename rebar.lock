@@ -1,8 +1,8 @@
 {"1.2.0",
-[{<<"clojerl">>,{pkg,<<"clojerl">>,<<"0.7.0">>},0}]}.
+[{<<"clojerl">>,{pkg,<<"clojerl">>,<<"0.7.1">>},0}]}.
 [
 {pkg_hash,[
- {<<"clojerl">>, <<"D4F7982356BA91C4C993AA94FE075ED93E925FF9021D4A236112A134C2B6E966">>}]},
+ {<<"clojerl">>, <<"B70764CD8DA116CB4DA8AE7C84ED6E3FCCF58D24D8DBAF6CCF7B7D835D2FEC88">>}]},
 {pkg_hash_ext,[
- {<<"clojerl">>, <<"E412CACFB07CD39933E42E4578C1918F631677CEF82DE65501CBF1F5232DAA8A">>}]}
+ {<<"clojerl">>, <<"C287505C49CEAE6800C8964341C615461AB8D3E39A0B7AC53E5D0CA5108AE157">>}]}
 ].
