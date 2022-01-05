@@ -6,7 +6,7 @@
                   :extra-deps {com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner.git"
                                                           :sha "cc75980b43011773162b485f46f939dc5fba91e4"}}
                   :main-opts ["-m" "cognitect.test-runner"]}
-           :dev-cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.10.914"}}}
+           :dev-cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.11.4"}}}
            :test-cljs {:extra-paths ["test"]
                        :extra-deps {olical/cljs-test-runner {:mvn/version "3.8.0"}}
                        :main-opts ["-m" "cljs-test-runner.main"]}}}
