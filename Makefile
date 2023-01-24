@@ -57,7 +57,7 @@ upgrade-clj:
 
 .PHONY: upgrade-clje
 upgrade-clje:
-	rebar3 upgrade
+	rebar3 upgrade --all
 	rebar3 update
 
 .PHONY: upgrade

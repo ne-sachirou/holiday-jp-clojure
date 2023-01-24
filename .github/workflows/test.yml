@@ -11,11 +11,11 @@ jobs:
   test-clj:
     strategy:
       matrix:
-        clojure: ["1.10.3.1058"]
+        clojure: ["1.11.1.1208"]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: DeLaGuardo/setup-clojure@3.7
+      - uses: DeLaGuardo/setup-clojure@10.1
         with:
           cli: ${{ matrix.clojure }}
       - name: Setup cljstyle
@@ -28,8 +28,8 @@ jobs:
           curl -sLO https://raw.githubusercontent.com/clj-kondo/clj-kondo/master/script/install-clj-kondo
           chmod +x install-clj-kondo
           sudo ./install-clj-kondo
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.m2
@@ -50,8 +50,8 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{ matrix.erlang }}
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
           path: |
             _build
@@ -65,18 +65,18 @@ jobs:
   test-cljr:
     strategy:
       matrix:
-        clojure-clr: ["1.10.0"]
+        clojure-clr: ["1.11.0"]
         dotnet: ["5.x"]
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/setup-dotnet@v1
+      - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet }}
       - name: Setup Clojure CLR
         run: |
           dotnet tool install --global --version ${{ matrix.clojure-clr }} Clojure.Main
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Test
         run: |
           Clojure.Main .\dev\task\test_cljr.clj
